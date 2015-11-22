@@ -37,10 +37,11 @@ extern int unixmain(int argc, char **argv);
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[window addSubview:mainViewController.view];
+    [window setRootViewController:[MainViewController instance]];
     [window makeKeyAndVisible];
 	
 	netHackThread = [[NSThread alloc] initWithTarget:self selector:@selector(netHackMainLoop:) object:nil];
-	[netHackThread start];
+    [netHackThread start];
 
 	return YES;
 }
@@ -70,7 +71,7 @@ extern int unixmain(int argc, char **argv);
 	[[NSUserName() capitalizedString] getCString:plname maxLength:PL_NSIZ encoding:NSASCIIStringEncoding];
 	
 	// call Slash'EM
-	unixmain(argc, argv);
+    unixmain(argc, argv);
 	
 	// clean up thread pool
 	[pool release];
